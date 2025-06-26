@@ -1,0 +1,290 @@
+import tkinter as tk
+from tkinter import messagebox
+
+# --- Variables globales para la pila y la cola ---
+pila_data = [] # Cambiado de 'pila' para evitar conflicto con posibles funciones/clases
+cola_data = []  # Cambiado de 'cola'
+
+# --- Clase principal de la aplicación ---
+class Programa:
+    def __init__(self, master, tupla=(), lista=None, conjunto=None, diccionario=None):
+        self.master = master
+        master.title('Aplicación con Menús y Estructuras de Datos')
+        master.geometry('600x400+55+35') # Ancho x Alto + Posición X + Posición Y
+
+        #Contenedores
+        self._tupla = ()
+        self._lista = []
+        self._conjunto = set()
+        self._diccionario = {}
+        
+        # Pilas y colas
+        self.ventana_pila_obj = None
+        self.ventana_cola_obj = None
+        self.ventana_contenedores_obj = None
+
+        # Atributos para los Entry y Text de la ventana de Contenedores
+        self.entry_elemento = None
+        self.entry_clave = None
+        self.entry_valor = None
+        self.display_contenedores = None
+
+        self._crear_menu()
+        self.Portada()
+
+    def _crear_menu(self):
+        menu_principal = tk.Menu(self.master)
+        self.master.config(menu=menu_principal)
+        
+        menu_1er_parcial = tk.Menu(menu_principal, tearoff=0)
+        menu_1er_parcial.add_command(label="Contenedores (Tupla, Lista, Conjunto, Diccionario)",command=self.mostrar_ventana_contenedores)
+        menu_1er_parcial.add_separator()
+        menu_1er_parcial.add_command(label="Pila", command=self.mostrar_ventana_pila)
+        menu_1er_parcial.add_command(label="Cola", command=self.mostrar_ventana_cola)
+        menu_principal.add_cascade(label="1er Parcial", menu=menu_1er_parcial)
+
+        menu_2do_parcial = tk.Menu(menu_principal, tearoff=0)
+        menu_principal.add_cascade(label="2do Parcial", menu=menu_2do_parcial)
+
+        menu_3er_parcial = tk.Menu(menu_principal, tearoff=0)
+        menu_principal.add_cascade(label="3er Parcial", menu=menu_2do_parcial)
+        
+        menu_ayuda = tk.Menu(menu_principal, tearoff=0)
+        menu_ayuda.add_command(label="Acerca de...", command=self.mostrar_acerca_de)
+        menu_ayuda.add_separator()
+        menu_ayuda.add_command(label="Cerrar Ventana Actual", command=self.cerrar_ventana_actual)
+        menu_principal.add_cascade(label="Ayuda", menu=menu_ayuda)
+
+    def Portada(self):
+        # Contenido de la ventana principal
+        tk.Label(self.master, text="Proyecto Final",
+                 font=("Arial", 16)).pack(pady=50)
+        tk.Label(self.master, text="Hecho por Nogueda Alcantara Gunther",
+                 font=("Arial", 16)).pack(pady=10)
+        tk.Label(self.master, text="2CV14",
+                 font=("Arial", 16)).pack(pady=10)
+
+
+
+    # --- Métodos generales de la aplicación ---
+    def mostrar_acerca_de(self):
+        messagebox.showinfo("Acerca de", "Este programa es para pasar el semestre.")
+        
+    def cerrar_ventana_actual(self):
+        """Intenta cerrar la ventana de Pila, Cola o Contenedores si está abierta."""
+        if self.ventana_pila_obj and self.ventana_pila_obj.winfo_exists():
+            self.ventana_pila_obj.destroy()
+            self.ventana_pila_obj = None
+            messagebox.showinfo("Cerrar Ventana", "Ventana de Pila cerrada.")
+        elif self.ventana_cola_obj and self.ventana_cola_obj.winfo_exists():
+            self.ventana_cola_obj.destroy()
+            self.ventana_cola_obj = None
+            messagebox.showinfo("Cerrar Ventana", "Ventana de Cola cerrada.")
+        elif self.ventana_contenedores_obj and self.ventana_contenedores_obj.winfo_exists():
+            self.ventana_contenedores_obj.destroy()
+            self.ventana_contenedores_obj = None
+            messagebox.showinfo("Cerrar Ventana", "Ventana de Contenedores cerrada.")
+        else:
+            messagebox.showinfo("Cerrar Ventana", "No hay ventanas secundarias abiertas para cerrar.")
+
+    def mostrar_ventana_contenedores(self):
+        if self.ventana_contenedores_obj and self.ventana_contenedores_obj.winfo_exists():
+            self.ventana_contenedores_obj.lift()
+            return
+
+        self.ventana_contenedores_obj = tk.Toplevel(self.master)
+        self.ventana_contenedores_obj.title("Gestión de Contenedores")
+        self.ventana_contenedores_obj.geometry("600x500+250+50")
+
+        # Marco para las entradas de datos
+        input_frame = tk.LabelFrame(self.ventana_contenedores_obj, text="Añadir Datos", padx=10, pady=10)
+        input_frame.pack(pady=10, padx=10, fill=tk.X)
+
+        tk.Label(input_frame, text="Elemento (Tupla, Lista, Conjunto):").grid(row=0, column=0, sticky="w", pady=2)
+        self.entry_elemento = tk.Entry(input_frame, width=40)
+        self.entry_elemento.grid(row=0, column=1, padx=5, pady=2)
+
+        tk.Label(input_frame, text="Clave (solo para Diccionario):").grid(row=1, column=0, sticky="w", pady=2)
+        self.entry_clave = tk.Entry(input_frame, width=40)
+        self.entry_clave.grid(row=1, column=1, padx=5, pady=2)
+
+        tk.Label(input_frame, text="Valor (solo para Diccionario):").grid(row=2, column=0, sticky="w", pady=2)
+        self.entry_valor = tk.Entry(input_frame, width=40)
+        self.entry_valor.grid(row=2, column=1, padx=5, pady=2)
+
+        # Frame para los botones de añadir
+        button_frame = tk.Frame(input_frame)
+        button_frame.grid(row=3, column=0, columnspan=2, pady=10)
+        tk.Button(button_frame, text="Añadir a Tupla", command=self._anadir_tupla_ui).pack(side=tk.LEFT, padx=5)
+        tk.Button(button_frame, text="Añadir a Lista", command=self._anadir_lista_ui).pack(side=tk.LEFT, padx=5)
+        tk.Button(button_frame, text="Añadir a Conjunto", command=self._anadir_conjunto_ui).pack(side=tk.LEFT, padx=5)
+        tk.Button(button_frame, text="Añadir a Diccionario", command=self._anadir_diccionario_ui).pack(side=tk.LEFT, padx=5)
+
+        # Área de texto para mostrar los contenedores
+        tk.Label(self.ventana_contenedores_obj, text="Contenido Actual de los Contenedores:", font=("Arial", 12, "bold")).pack(pady=10)
+        self.display_contenedores = scrolledtext.ScrolledText(self.ventana_contenedores_obj, width=70, height=15, wrap=tk.WORD)
+        self.display_contenedores.pack(pady=5, padx=10, fill=tk.BOTH, expand=True)
+        self._actualizar_display_contenedores() # Mostrar el estado inicial
+
+    def _actualizar_display_contenedores(self):
+        if self.display_contenedores and self.display_contenedores.winfo_exists():
+            self.display_contenedores.config(state=tk.NORMAL)
+            self.display_contenedores.delete(1.0, tk.END)
+            # ¡Ahora llamamos a ver_contenedores directamente en self!
+            self.display_contenedores.insert(tk.END, self.ver_contenedores())
+            self.display_contenedores.config(state=tk.DISABLED)
+
+    def _anadir_tupla_ui(self):
+        elemento_str = self.entry_elemento.get().strip()
+        if not elemento_str:
+            messagebox.showwarning("Entrada Vacía", "Por favor, introduce un elemento.")
+            return
+        elemento = self._convertir_elemento(elemento_str)
+        # Llamamos al método directo de Programa
+        self.add_to_tupla(elemento)
+        self._actualizar_display_contenedores()
+        self.entry_elemento.delete(0, tk.END)
+
+    def _anadir_lista_ui(self):
+        elemento_str = self.entry_elemento.get().strip()
+        if not elemento_str:
+            messagebox.showwarning("Entrada Vacía", "Por favor, introduce un elemento.")
+            return
+        elemento = self._convertir_elemento(elemento_str)
+        # Llamamos al método directo de Programa
+        self.add_to_lista(elemento)
+        self._actualizar_display_contenedores()
+        self.entry_elemento.delete(0, tk.END)
+
+    def _anadir_conjunto_ui(self):
+        elemento_str = self.entry_elemento.get().strip()
+        if not elemento_str:
+            messagebox.showwarning("Entrada Vacía", "Por favor, introduce un elemento.")
+            return
+        elemento = self._convertir_elemento(elemento_str)
+        # Llamamos al método directo de Programa
+        self.add_to_conjunto(elemento)
+        self._actualizar_display_contenedores()
+        self.entry_elemento.delete(0, tk.END)
+
+    def _anadir_diccionario_ui(self):
+        clave_str = self.entry_clave.get().strip()
+        valor_str = self.entry_valor.get().strip()
+        if not clave_str or not valor_str:
+            messagebox.showwarning("Entrada Vacía", "Por favor, introduce clave y valor para el diccionario.")
+            return
+
+        clave = self._convertir_elemento(clave_str)
+        valor = self._convertir_elemento(valor_str)
+
+        # Llamamos al método directo de Programa
+        self.add_to_diccionario(clave, valor)
+        self._actualizar_display_contenedores()
+        self.entry_clave.delete(0, tk.END)
+        self.entry_valor.delete(0, tk.END)
+         
+
+    def mostrar_ventana_pila(self):
+        if self.ventana_pila_obj and self.ventana_pila_obj.winfo_exists():
+            self.ventana_pila_obj.lift()
+            return
+
+        global entrada_nombre_pila, entrada_apellido_pila, etiqueta_pila_display
+        self.ventana_pila_obj = tk.Toplevel(self.master)
+        self.ventana_pila_obj.title("Pila")
+        self.ventana_pila_obj.geometry("400x350+500+100") 
+
+        tk.Label(self.ventana_pila_obj, text="Elementos de Pila (LIFO):", font=("Arial", 14, "bold")).pack(pady=10)
+
+        tk.Label(self.ventana_pila_obj, text="Nombre:", font=("Arial", 12)).pack(pady=2)
+        entrada_nombre_pila = tk.Entry(self.ventana_pila_obj, width=30)
+        entrada_nombre_pila.pack(pady=2)
+
+        tk.Label(self.ventana_pila_obj, text="Apellido:", font=("Arial", 12)).pack(pady=2)
+        entrada_apellido_pila = tk.Entry(self.ventana_pila_obj, width=30)
+        entrada_apellido_pila.pack(pady=2)
+
+        boton_frame = tk.Frame(self.ventana_pila_obj) 
+        boton_frame.pack(pady=10)
+
+        tk.Button(boton_frame, text="Agregar a Pila", command=self._agregar_pila_ui).pack(side=tk.LEFT, padx=5)
+        tk.Button(boton_frame, text="Eliminar de Pila", command=self._eliminar_pila_ui).pack(side=tk.LEFT, padx=5)
+
+        etiqueta_pila_display = tk.Label(self.ventana_pila_obj, text=f"Pila: {pila_data}", font=("Arial", 12))
+        etiqueta_pila_display.pack(pady=10)
+
+
+    def _agregar_pila_ui(self):
+        nombre = entrada_nombre_pila.get().strip()
+        apellido = entrada_apellido_pila.get().strip()
+        if nombre and apellido:
+            pila_data.append((nombre, apellido))
+            etiqueta_pila_display.config(text=f"Pila: {pila_data}")
+            entrada_nombre_pila.delete(0, tk.END)
+            entrada_apellido_pila.delete(0, tk.END)
+        else:
+            messagebox.showwarning("Advertencia", "Todos los campos (Nombre y Apellido) son obligatorios para la Pila.")
+
+    def _eliminar_pila_ui(self):
+        if pila_data:
+            nombre, apellido = pila_data.pop()
+            etiqueta_pila_display.config(text=f"Pila: {pila_data}")
+            messagebox.showinfo("Elemento Eliminado", f"Se eliminó de la Pila: Nombre: {nombre}, Apellido: {apellido}")
+        else:
+            messagebox.showwarning("Advertencia", "La pila está vacía. No hay elementos para eliminar.")
+
+    def mostrar_ventana_cola(self):
+        if self.ventana_cola_obj and self.ventana_cola_obj.winfo_exists():
+            self.ventana_cola_obj.lift() 
+            return
+
+        global entrada_usuario_cola, entrada_operacion_cola, etiqueta_cola_display
+        self.ventana_cola_obj = tk.Toplevel(self.master) # Se crea como ventana secundaria
+        self.ventana_cola_obj.title("Gestión de Cola")
+        self.ventana_cola_obj.geometry("400x350+950+100") # Posiciona la ventana
+
+        tk.Label(self.ventana_cola_obj, text="Elementos de Cola (FIFO):", font=("Arial", 14, "bold")).pack(pady=10)
+
+        tk.Label(self.ventana_cola_obj, text="Usuario:", font=("Arial", 12)).pack(pady=2)
+        entrada_usuario_cola = tk.Entry(self.ventana_cola_obj, width=30)
+        entrada_usuario_cola.pack(pady=2)
+
+        tk.Label(self.ventana_cola_obj, text="Operación:", font=("Arial", 12)).pack(pady=2)
+        entrada_operacion_cola = tk.Entry(self.ventana_cola_obj, width=30)
+        entrada_operacion_cola.pack(pady=2)
+
+        boton_frame = tk.Frame(self.ventana_cola_obj) # Frame para agrupar botones
+        boton_frame.pack(pady=10)
+
+        tk.Button(boton_frame, text="Agregar a Cola", command=self._agregar_cola_ui).pack(side=tk.LEFT, padx=5)
+        tk.Button(boton_frame, text="Eliminar de Cola", command=self._eliminar_cola_ui).pack(side=tk.LEFT, padx=5)
+
+        etiqueta_cola_display = tk.Label(self.ventana_cola_obj, text=f"Cola: {cola_data}", font=("Arial", 12))
+        etiqueta_cola_display.pack(pady=10)
+
+    def _agregar_cola_ui(self):
+        usuario = entrada_usuario_cola.get().strip()
+        operacion = entrada_operacion_cola.get().strip()
+        if usuario and operacion:
+            cola_data.append((usuario, operacion))
+            etiqueta_cola_display.config(text=f"Cola: {cola_data}")
+            entrada_usuario_cola.delete(0, tk.END)
+            entrada_operacion_cola.delete(0, tk.END)
+        else:
+            messagebox.showwarning("Advertencia", "Todos los campos (Usuario y Operación) son obligatorios para la Cola.")
+
+    def _eliminar_cola_ui(self):
+        if cola_data:
+            usuario_eliminado, operacion_eliminada = cola_data.pop(0) 
+            etiqueta_cola_display.config(text=f"Cola: {cola_data}")
+            messagebox.showinfo("Elemento Eliminado", f"Se eliminó de la Cola: Usuario: {usuario_eliminado}, Operación: {operacion_eliminada}")
+        else:
+            messagebox.showwarning("Advertencia", "La cola está vacía. No hay elementos para eliminar.")
+
+        
+if __name__ == "__main__":
+    ventana = tk.Tk()
+    A = Programa(ventana)
+    ventana.mainloop()
+
+
