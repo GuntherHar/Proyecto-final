@@ -1,0 +1,90 @@
+{
+  "Dune": {
+    "genero": "Sci-fi",
+    "director": "Denis Villeneuve",
+    "estilo": "Epico",
+    "imdb": "7.3/10",
+    "sinopsis": "Arrakis, también denominado 'Dune', se ha convertido en el planeta mas importante del universo. A su alrededor comienza una gigantesca lucha por el poder que culmina en una guerra interestelar.",
+    "imagen": "Implementacion/Filmder/imagenes/dune.jpg"
+  },
+  "Sicario": {
+    "genero": "Accion",
+    "director": "Denis Villeneuve",
+    "estilo": "Realista",
+    "imdb": "7.7/10",
+    "sinopsis": "En Mexico, un sicario es un asesino a sueldo. Mientras que en Chandler, Arizona, la idealista agente del FBI Kate Mercer participa en una operacion para intentar liberar a unos rehenes. Lo que encuentran en el lugar, sin embargo, es muy diferente de lo que esperaban.",
+    "imagen": "Implementacion/Filmder/imagenes/sicario.jpg"
+  },
+  "2001: Odisea espacial": {
+    "genero": "Sci-fi",
+    "director": "Stanley Kubrick",
+    "estilo": "Estetico",
+    "imdb": "8.3/10",
+    "sinopsis": "La pelicula de ciencia ficcion por antonomasia de la historia del cine narra los diversos periodos de la historia de la humanidad, no solo del pasado, sino tambien del futuro. Hace millones de años, antes de la aparicion del homo sapiens, unos primates descubren un monolito que los conduce a un estadio de inteligencia superior. Millones de años despues, otro monolito, enterrado en una luna, despierta el interes de los científicos.",
+    "imagen":"Implementacion/Filmder/imagenes/2001.jpg"
+  },
+  "Interstellar": {
+    "genero": "Sci-fi",
+    "director": "Christopher Nolan",
+    "estilo": "Epico",
+    "imdb": "8.7/10",
+    "sinopsis": "Un grupo de cientificos y exploradores, encabezados por Cooper, se embarcan en un viaje espacial para encontrar un lugar con las condiciones necesarias para reemplazar a la Tierra y comenzar una nueva vida alli. La Tierra esta llegando a su fin y este grupo necesita encontrar un planeta mas alla de nuestra galaxia que garantice el futuro de la raza humana.",
+    "imagen": "Implementacion/Filmder/imagenes/interestelar.jpg"
+  },
+  "El gran hotel Budapest": {
+    "genero": "Comedia",
+    "director": "Wes Anderson",
+    "estilo": "Estetico",
+    "imdb": "8.1/10",
+    "sinopsis": "Gustave trabaja como conserje en el famoso gran hotel Budapest. Alli entabla amistad con Zero Moustafa, el nuevo empleado que se convierte en su protegido y a quien explica todos los secretos de la profesion. De repente, la rica Madame D. muere y deja en herencia a Gustave un preciado cuadro del Renacimiento. Sin embargo, los herederos de la rica mujer no estan de acuerdo con el testamento y acusan a Gustave de asesinato. Entonces el conserje debera escapar de la policía con la ayuda de Zero.",
+    "imagen": "Implementacion/Filmder/imagenes/el gran hotel budapest.jpg"
+  },
+  "Isla de perros": {
+    "genero": "Comedia",
+    "director": "Wes Anderson",
+    "estilo": "Stop-motion",
+    "imdb": "7.8/10",
+    "sinopsis": "Todos los perros viven exiliados en la inmunda Isla Basura desde el brote de gripe canina que asolo la ciudad de Megasaki. Un grupo de duros perros alfa parece haber perdido toda esperanza cuando de repente aparece Atari, un niño que quiere recuperar a su mascota.",
+    "imagen": "Implementacion/Filmder/imagenes/isla de perros.jpg"
+  },
+  "Jojo Rabbit": {
+    "genero": "Comedia",
+    "director": "Taika Waititi",
+    "estilo": "Estetico",
+    "imdb": "7.9",
+    "sinopsis": "Durante la Segunda Guerra Mundial, un niño que pertenece a las Juventudes Hitlerianas descubre que su madre esta ocultando en el atico de su casa a una niña judía. La concepcion del mundo que tienen el pequeño y su amigo imaginario, Hitler, cambia por completo con la irrupción en sus vidas de la joven hebrea.",
+    "imagen": "Implementacion/Filmder/imagenes/jojo rabbit.jpg"
+  },
+  "Pinocchio": {
+    "genero": "Fantasia",
+    "director": "Guillermo del toro",
+    "estilo": "Stop-motion",
+    "imdb": "7.6/10",
+    "sinopsis": "En la Italia fascista de Benito Mussolini, el deseo de Geppetto, un viejo carpintero que perdio a su hijo durante la primera guerra mundial, se vuelve realidaddad. Una noche gracias a un poco de magia el muñeco de madera cobra vida y cumple todos los sueños de Gepetto de tener un pequeño hijo. Sin embargo, Pinocho no es como el carpintero espera, en vez de ser obediente y tranquilo, el niño adora la diversion y las travesuras. Pinocho esta harto de no ser lo que su padre desea, asi que se marcha a vivir aventuras, pero pronto se dara cuenta de que ha ido demasiado lejos.",
+    "imagen": "Implementacion/Filmder/imagenes/pinocchio.jpg"
+  },
+  "Se7en": {
+  "genero": "Crimen",
+  "director": "David Fincher",
+  "estilo": "Oscuro",
+  "imdb": "8.6/10",
+  "sinopsis": "Dos detectives, uno veterano y otro novato, investigan a un asesino serial que basa sus crimenes en los siete pecados capitales. A medida que avanzan en el caso, se ven envueltos en un juego psicologico que pondra a prueba sus limites.",
+  "imagen": "Implementacion/Filmder/imagenes/seven.jpg"
+  },
+  "Zodiac": {
+  "genero": "Crimen",
+  "director": "David Fincher",
+  "estilo": "Realista",
+  "imdb": "7.7/10",
+  "sinopsis": "Un caricaturista del periodico, obsesionado con descubrir la identidad del asesino del Zodiaco, se une a periodistas y detectives en la busqueda del enigmatico criminal que aterroriza San Francisco durante decadas.",
+  "imagen": "Implementacion/Filmder/imagenes/zodiaco.jpg"
+  },
+  "Coraline": {
+  "genero": "Fantasia",
+  "director": "Henry Selick",
+  "estilo": "Stop-motion",
+  "imdb": "7.7/10",
+  "sinopsis": "Coraline es una niña curiosa que descubre una puerta secreta en su nueva casa. Al atravesarla, encuentra una versión alternativa de su vida: misma casa, mismos padres, pero todo es mucho más emocionante… al principio. Pronto, Coraline se da cuenta de que este mundo perfecto oculta un oscuro secreto, y deberá reunir todo su coraje para salvar a su verdadera familia.",
+  "imagen": "Implementacion/Filmder/imagenes/coraline.jpg"
+  }
+}
